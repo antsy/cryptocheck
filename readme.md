@@ -20,7 +20,7 @@ However if you are running TCL in an environment where you don't have root acces
 
 ## Thanks
 
-If you like this, please consider tipping:
+Due to finnish law, it is illegal to ask for tips. However, it's not illegal to receive money.
 
  * BTC: `3P7mfD1dCebi1LPEDByk5Q68bPDPzgLUD1`
  * ETH: `0xE511275174FA446735AECE520717aaD5932e47e2`
