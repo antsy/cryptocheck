@@ -1,15 +1,15 @@
 # Cryptocurrency price check script for Eggdrop IRC bots
 
-What the title says, Eggdrop IRC script which will fetch prices of cryptocurrencies and display the current value and last 24h change.
+What the title says, Eggdrop IRC script which will fetch prices of cryptocurrencies and display the current value and last 24h change percentage.
 
 ## Usage
 
-Message the bot `!crypto` command to get current price of the coin in Euros. Command works both as private message or as public message in any channel where your bot is listening. The value will be read from the Coingecko's API. Please refer to the [Coingecko API documentation](https://www.coingecko.com/api/documentations/v3) to get the actual [names of the coins](https://www.coingecko.com/api/documentations/v3#/coins/get_coins_list). If you prefer dollars💵 over euros💶 just edit the `outputCurrency` and `outputSymbol` values of the script.
+Message the bot `!crypto` command to get current price of the coin in Euros. Command works both as private message or as public message in any channel which your bot is listening. The value will be read from the Coingecko's API. Please refer to the [Coingecko API documentation](https://www.coingecko.com/api/documentations/v3) to get the [names of the coins](https://www.coingecko.com/api/documentations/v3#/coins/get_coins_list). If you prefer dollars💵 over euros💶 just edit the `outputCurrency` and `outputSymbol` values of the script.
 
 
 ## Installation
 
-Save the script somewhere where your Eggdrop can read it. Add the script to your bots configuration file with `source <path>` command. Run `.rehash` in party line, but be aware that if the script doesn't manage to load properly (Includes missing?) your bot will crash! Or alternatively you can simply restart your bot.
+Save the script file somewhere where your Eggdrop has read access to it. Add the script to your bot's configuration file with `source <path>` line. Run `.rehash` in party line, but be aware that if the script doesn't manage to load properly (perhaps the required libraries are not found?) your bot will crash! Or alternatively you can simply restart your bot.
 
 
 ### Possible problems
@@ -20,7 +20,7 @@ However if you are running TCL in an environment where you don't have root acces
 
 ## Thanks
 
-Due to finnish law, it is illegal to ask for tips. However, it's not illegal to receive money.
+Due to finnish law, it might be illegal to ask for tips (nobody seems to know for sure). However, it's not illegal to receive some.
 
  * BTC: `3P7mfD1dCebi1LPEDByk5Q68bPDPzgLUD1`
  * ETH: `0xE511275174FA446735AECE520717aaD5932e47e2`
