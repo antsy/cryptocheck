@@ -5,7 +5,7 @@ package require Tcl
 package require http
 package require json
 package require tls
-::http::register https 443 [list ::tls::socket -autoservername true]
+::http::register https 443 [list ::tls::socket -autoservername true -require 0 -request 1]
 
 namespace eval cryptocheck {
 
