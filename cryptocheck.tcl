@@ -5,7 +5,6 @@ package require Tcl
 package require http
 package require json
 package require tls
-::http::register https 443 [list ::tls::socket -autoservername true -require 0 -request 1]
 
 namespace eval cryptocheck {
 
@@ -209,6 +208,7 @@ proc fetch { currency } {
   set ids [join $currency "%2C"]
   set url "https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=${outputCurrency}&include_last_updated_at=true&include_24hr_change=true"
 
+  ::http::register https 443 [list ::tls::socket -autoservername true -require 0 -request 1]
   set token [http::config -useragent "$ccVersion"]
   set token [http::geturl $url]
 
