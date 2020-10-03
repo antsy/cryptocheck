@@ -103,11 +103,18 @@ proc prettyPrint { data } {
     dict with coinData {
       set coinValue [subst $$outputCurrency]
       if {$coinValue > 0.001} {
+        # Round to 3 decimals unless value is really small
         set coinValue [format {%0.3f} $coinValue]
       }
       set valueChange [formatValueChange $eur_24h_change]
+      set outdatedWarning [checkLastUpdated $last_updated_at]
+      set additionalInfo [join [list " (" $valueChange "%)"] ""]
+      if {$outdatedWarning != ""} {
+        # Really it makes no sense to display 24h values if the value is old so let's display warning message there instead
+        set additionalInfo [join [list " (" [colorize $outdatedWarning 5] ")"] ""]
+      }
 
-      set str [join [list $coinName ": " [bold $coinValue] $outputSymbol " (" $valueChange "%)"] ""]
+      set str [join [list $coinName ": " [bold $coinValue] $outputSymbol $additionalInfo] ""]
       lappend output $str
     }
   }
@@ -135,6 +142,37 @@ proc formatValueChange {eur_24h_change} {
   }
 
   return $valueChange
+}
+
+##
+# Check if the value is too old (older than one hour)
+#
+# @param  last_updated_at  UNIX timestamp
+# @return                  Error message
+proc checkLastUpdated {last_updated_at} {
+  set now [clock seconds]
+  set oneHour 3600
+  set timeDiff [expr {$now - $last_updated_at}]
+  if {$timeDiff > $oneHour} {
+    set hours [expr {$timeDiff / $oneHour}]
+    set hours [expr {round($hours)}]
+    if {$hours == 1} {
+      set warningText "Warning! the value is hour old"
+    } else {
+      set warningText "Warning! the value is $hours hours old"
+    }
+    if {$hours > 23} {
+      set days [expr {$hours / 24}]
+      set days [expr round($days)]
+      if {$days == 1} {
+        set warningText "Warning! the value is day old"
+      } else {
+        set warningText "Warning! the value is $days days old"
+      }
+    }
+    return [colorize $warningText 6]
+  }
+  return ""
 }
 
 ##
