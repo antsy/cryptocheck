@@ -102,15 +102,10 @@ proc prettyPrint { data } {
   dict for {coinName coinData} $data {
     dict with coinData {
       set coinValue [subst $$outputCurrency]
-      set coinValue [format {%0.3f} $coinValue]
-      set valueChange [format {%+0.2f} $eur_24h_change]
-      if {$eur_24h_change > 0} {
-        # Value gone up, color it green
-        set valueChange [colorize $valueChange 3]
-      } else {
-        # Value gone down, color it red
-        set valueChange [colorize $valueChange 4]
+      if {$coinValue > 0.001} {
+        set coinValue [format {%0.3f} $coinValue]
       }
+      set valueChange [formatValueChange $eur_24h_change]
 
       set str [join [list $coinName ": " [bold $coinValue] $outputSymbol " (" $valueChange "%)"] ""]
       lappend output $str
@@ -118,6 +113,28 @@ proc prettyPrint { data } {
   }
 
   return [join $output " "]
+}
+
+##
+# Format value change percentage
+#
+# @param  eur_24h_change  Change in the last twenty four hours
+# @return                 Formatted string
+proc formatValueChange {eur_24h_change} {
+  set valueChange "0.0"
+  if [string is double -strict $eur_24h_change] {
+    set valueChange [format {%+0.2f} $eur_24h_change]
+  }
+
+  if {$eur_24h_change > 0} {
+    # Value gone up, color it green
+    set valueChange [colorize $valueChange 3]
+  } else {
+    # Value gone down, color it red
+    set valueChange [colorize $valueChange 4]
+  }
+
+  return $valueChange
 }
 
 ##
