@@ -209,18 +209,10 @@ proc fetch { currency } {
   set ids [join $currency "%2C"]
   set url "https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=${outputCurrency}&include_last_updated_at=true&include_24hr_change=true"
 
-  # debug fetch url
-  #putlog "fetch url: $url"
-
   set token [http::config -useragent "$ccVersion"]
   set token [http::geturl $url]
 
   set result [json::json2dict [http::data $token]]
-
-  # debug result
-  #putlog "result: $result"
-
-  # TODO: check if $last_updated_at value has gone old, output some warning to user
 
   http::cleanup $token
   return $result
